@@ -1,0 +1,9 @@
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore secrets directory
+secrets/
+
+# Ignore temporary upstream clone used for image builds
+.upstream-OB1/

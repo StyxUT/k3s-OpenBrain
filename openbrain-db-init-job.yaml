@@ -1,0 +1,43 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: openbrain-db-init
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: openbrain-db-init
+    spec:
+      restartPolicy: OnFailure
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: tpu
+                operator: NotIn
+                values:
+                - "true"
+      containers:
+      - name: psql
+        image: pgvector/pgvector:pg18
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-password
+              key: POSTGRES_PASSWORD
+        command:
+        - /bin/sh
+        - -c
+        - psql -h postgres-service -U postgres -d postgres -v ON_ERROR_STOP=1 -c "SELECT 'CREATE DATABASE openbrain' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'openbrain')\\gexec" && psql -h postgres-service -U postgres -d openbrain -v ON_ERROR_STOP=1 -f /config/init.sql
+        volumeMounts:
+        - name: init-sql
+          mountPath: /config
+      volumes:
+      - name: init-sql
+        configMap:
+          name: openbrain-db-init

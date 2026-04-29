@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openbrain
+  labels:
+    app: openbrain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openbrain
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: openbrain
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: tpu
+                operator: NotIn
+                values:
+                - "true"
+      containers:
+      - name: openbrain
+        image: openbrain-mcp-server:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        env:
+        - name: DB_HOST
+          value: "postgres-service"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: "openbrain"
+        - name: DB_USER
+          value: "postgres"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-password
+              key: POSTGRES_PASSWORD
+        - name: MCP_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openbrain-secret
+              key: MCP_ACCESS_KEY
+        - name: EMBEDDING_API_BASE
+          value: "http://192.168.0.13:11434/v1"
+        - name: EMBEDDING_API_KEY
+          value: "ollama"
+        - name: EMBEDDING_MODEL
+          value: "qwen3-embedding"
+        - name: CHAT_API_BASE
+          value: "http://192.168.0.13:11434/v1"
+        - name: CHAT_API_KEY
+          value: "ollama"
+        - name: CHAT_MODEL
+          value: "qwen3.5:27b"
+        - name: PORT
+          value: "8000"
+        readinessProbe:
+          tcpSocket:
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            memory: 512Mi

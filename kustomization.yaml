@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - openbrain-configmap.yaml
+  - openbrain-db-init-job.yaml
+  - openbrain-deployment.yaml
+  - openbrain-svc.yaml
+secretGenerator:
+  - name: openbrain-secret
+    files:
+      - MCP_ACCESS_KEY=./secrets/mcp_access_key.txt
+generatorOptions:
+  disableNameSuffixHash: true
