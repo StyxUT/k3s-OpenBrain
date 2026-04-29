@@ -6,6 +6,11 @@ resources:
   - openbrain-db-init-job.yaml
   - openbrain-deployment.yaml
   - openbrain-svc.yaml
+configMapGenerator:
+  - name: openbrain-app
+    files:
+      - app/index.ts
+      - app/deno.json
 secretGenerator:
   - name: openbrain-secret
     files:

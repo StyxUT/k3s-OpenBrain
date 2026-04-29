@@ -28,8 +28,15 @@ spec:
                 - "true"
       containers:
       - name: openbrain
-        image: openbrain-mcp-server:latest
+        image: denoland/deno:2.3.3
         imagePullPolicy: IfNotPresent
+        command:
+        - deno
+        - run
+        - --allow-net
+        - --allow-env
+        - --allow-read
+        - /app/index.ts
         ports:
         - name: http
           containerPort: 8000
@@ -72,9 +79,20 @@ spec:
             port: 8000
           initialDelaySeconds: 10
           periodSeconds: 10
+        volumeMounts:
+        - name: openbrain-app
+          mountPath: /app/index.ts
+          subPath: index.ts
+        - name: openbrain-app
+          mountPath: /app/deno.json
+          subPath: deno.json
         resources:
           requests:
             cpu: 100m
             memory: 128Mi
           limits:
             memory: 512Mi
+      volumes:
+      - name: openbrain-app
+        configMap:
+          name: openbrain-app

@@ -27,25 +27,11 @@ printf '%s' 'your-random-mcp-key' > ./secrets/mcp_access_key.txt
 
 The `secrets/` directory is ignored by git and is consumed by `kustomization.yaml`.
 
-## Build The MCP Image
+## Runtime Layout
 
-The manifests expect the image tag `openbrain-mcp-server:latest`.
+The OpenBrain Deno server source is stored in `app/` and injected into the pod by a generated ConfigMap.
 
-Build from the upstream OpenBrain integration source:
-
-```bash
-docker build -t openbrain-mcp-server:latest ./.upstream-OB1/integrations/kubernetes-deployment
-```
-
-## Import The Image Into k3s
-
-This workstation does not run k3s locally, so import the image on a k3s node:
-
-```bash
-docker save -o openbrain-mcp-server.tar openbrain-mcp-server:latest
-scp openbrain-mcp-server.tar <user>@192.168.0.211:/tmp/
-ssh <user>@192.168.0.211 'sudo k3s ctr images import /tmp/openbrain-mcp-server.tar'
-```
+This avoids the need to build and import a custom image onto the k3s nodes.
 
 ## Apply Manifests
 
