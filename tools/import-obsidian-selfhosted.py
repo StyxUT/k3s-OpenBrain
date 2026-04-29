@@ -24,6 +24,8 @@ ALWAYS_SKIP = {".obsidian", ".trash", ".git", "node_modules"}
 DEFAULT_MIN_WORDS = 20
 WHOLE_NOTE_THRESHOLD = 500
 EMBEDDING_MODEL = "qwen3-embedding"
+MAX_RETRIES = 3
+RETRY_BACKOFF = 2
 
 WIKILINK_RE = re.compile(r"\[\[([^\]|#]+?)(?:\|[^\]]+)?\]\]")
 INLINE_TAG_RE = re.compile(r"(?<!\w)#([A-Za-z0-9_/-]+)")
@@ -176,17 +178,25 @@ def iter_notes(vault_root: Path, skip_folders: set[str]):
 
 
 def generate_embedding(text: str, api_base: str, api_key: str):
-    resp = requests.post(
-        f"{api_base}/embeddings",
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
-        json={"model": EMBEDDING_MODEL, "input": text[:8000]},
-        timeout=60,
-    )
-    resp.raise_for_status()
-    return resp.json()["data"][0]["embedding"]
+    for attempt in range(MAX_RETRIES):
+        try:
+            resp = requests.post(
+                f"{api_base}/embeddings",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={"model": EMBEDDING_MODEL, "input": text[:8000]},
+                timeout=180,
+            )
+            resp.raise_for_status()
+            return resp.json()["data"][0]["embedding"]
+        except requests.RequestException as exc:
+            if attempt == MAX_RETRIES - 1:
+                raise
+            wait = RETRY_BACKOFF * (2 ** attempt)
+            print(f"Embedding retry in {wait}s: {exc}", flush=True)
+            time.sleep(wait)
 
 
 def content_fingerprint(text: str) -> str:
