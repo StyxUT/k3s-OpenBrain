@@ -10,4 +10,4 @@ secrets/
 
 # Ignore local importer artifacts
 tools/__pycache__/
-tools/obsidian-sync-log-selfhosted.json
+tools/obsidian-sync-*.json

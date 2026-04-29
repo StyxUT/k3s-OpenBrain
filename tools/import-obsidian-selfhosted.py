@@ -24,7 +24,6 @@ ALWAYS_SKIP = {".obsidian", ".trash", ".git", "node_modules"}
 DEFAULT_MIN_WORDS = 20
 WHOLE_NOTE_THRESHOLD = 500
 EMBEDDING_MODEL = "qwen3-embedding"
-SYNC_LOG_FILE = "obsidian-sync-log-selfhosted.json"
 
 WIKILINK_RE = re.compile(r"\[\[([^\]|#]+?)(?:\|[^\]]+)?\]\]")
 INLINE_TAG_RE = re.compile(r"(?<!\w)#([A-Za-z0-9_/-]+)")
@@ -195,8 +194,13 @@ def content_fingerprint(text: str) -> str:
     return hashlib.sha256(normalized.encode()).hexdigest()
 
 
-def load_sync_log(script_dir: Path) -> dict:
-    path = script_dir / SYNC_LOG_FILE
+def sync_log_path(script_dir: Path, vault_name: str) -> Path:
+    safe_name = re.sub(r"[^A-Za-z0-9._-]+", "_", vault_name)
+    return script_dir / f"obsidian-sync-{safe_name}.json"
+
+
+def load_sync_log(script_dir: Path, vault_name: str) -> dict:
+    path = sync_log_path(script_dir, vault_name)
     if path.exists():
         try:
             return json.loads(path.read_text())
@@ -205,8 +209,8 @@ def load_sync_log(script_dir: Path) -> dict:
     return {"vault_path": "", "last_run": "", "thoughts": {}}
 
 
-def save_sync_log(script_dir: Path, log: dict):
-    (script_dir / SYNC_LOG_FILE).write_text(json.dumps(log, indent=2) + "\n")
+def save_sync_log(script_dir: Path, vault_name: str, log: dict):
+    sync_log_path(script_dir, vault_name).write_text(json.dumps(log, indent=2) + "\n")
 
 
 def sql_literal(value: str) -> str:
@@ -266,6 +270,7 @@ def main():
     parser.add_argument("--embedding-api-base", default=os.environ.get("EMBEDDING_API_BASE", "http://192.168.0.13:11434/v1"))
     parser.add_argument("--embedding-api-key", default=os.environ.get("EMBEDDING_API_KEY", "ollama"))
     parser.add_argument("--db-password", default=os.environ.get("OPENBRAIN_DB_PASSWORD", ""))
+    parser.add_argument("--vault-name", default="")
     args = parser.parse_args()
 
     vault_root = Path(args.vault_path).expanduser().resolve()
@@ -273,9 +278,11 @@ def main():
         print(f"Error: vault not found at {vault_root}", file=sys.stderr)
         sys.exit(1)
 
+    vault_name = args.vault_name.strip() or vault_root.name
+
     skip_folders = {f.strip() for f in args.skip_folders.split(",") if f.strip()}
     script_dir = Path(__file__).parent
-    sync_log = load_sync_log(script_dir)
+    sync_log = load_sync_log(script_dir, vault_name)
 
     notes = []
     for full_path, rel_path, folder, title in iter_notes(vault_root, skip_folders):
@@ -320,6 +327,7 @@ def main():
                     "content": content,
                     "metadata": {
                         "source": "obsidian",
+                        "vault": vault_name,
                         "title": note["title"],
                         "folder": note["folder"],
                         "tags": note["tags"],
@@ -331,6 +339,7 @@ def main():
             )
 
     print(f"Vault: {vault_root}")
+    print(f"Vault name: {vault_name}")
     print(f"Notes selected: {len(notes)}")
     print(f"Thoughts generated: {len(thoughts)}")
     print(f"Thoughts skipped for secrets: {len(secrets)}")
@@ -374,7 +383,7 @@ def main():
             "note_hash": note["note_hash"],
             "updated_at": datetime.now(tz=timezone.utc).isoformat(),
         }
-    save_sync_log(script_dir, sync_log)
+    save_sync_log(script_dir, vault_name, sync_log)
 
     print(f"\nImported {inserted} thoughts")
 
