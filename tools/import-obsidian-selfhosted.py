@@ -267,6 +267,7 @@ def main():
     parser.add_argument("--min-words", type=int, default=DEFAULT_MIN_WORDS)
     parser.add_argument("--skip-folders", type=str, default="")
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--no-secret-scan", action="store_true")
     parser.add_argument("--embedding-api-base", default=os.environ.get("EMBEDDING_API_BASE", "http://192.168.0.13:11434/v1"))
     parser.add_argument("--embedding-api-key", default=os.environ.get("EMBEDDING_API_KEY", "ollama"))
     parser.add_argument("--db-password", default=os.environ.get("OPENBRAIN_DB_PASSWORD", ""))
@@ -318,10 +319,11 @@ def main():
         for chunk in chunk_note(note):
             section_part = f" > {chunk['section']}" if chunk["section"] else ""
             content = f"[Obsidian: {note['title']} | {note['folder']}{section_part}] {chunk['content']}"
-            secret = scan_for_secrets(content)
-            if secret:
-                secrets.append({"path": note["path"], "reason": secret})
-                continue
+            if not args.no_secret_scan:
+                secret = scan_for_secrets(content)
+                if secret:
+                    secrets.append({"path": note["path"], "reason": secret})
+                    continue
             thoughts.append(
                 {
                     "content": content,
