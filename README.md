@@ -58,3 +58,72 @@ curl -X POST http://192.168.0.211:8000 \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
 ```
+
+## Obsidian Import
+
+This repo includes a self-hosted Obsidian importer at `tools/import-obsidian-selfhosted.py`.
+
+It imports notes directly into the shared `thoughts` table, generates embeddings through Ollama,
+and stores vault-specific metadata alongside each imported thought.
+
+### Multi-Vault Workflow
+
+Recommended approach:
+
+1. Import each vault separately.
+2. Always set `--vault-name`.
+3. Use dry run first.
+4. Start with a small `--limit` batch.
+5. Run the full import after verifying results.
+
+The importer keeps a separate sync log per vault in `tools/obsidian-sync-<vault>.json`, so reruns
+skip unchanged notes independently for each vault.
+
+### Current Imported Vaults
+
+- `<vault-name-a>` -> `<thought-count-a>` thoughts
+- `<vault-name-b>` -> `<thought-count-b>` thoughts
+- `<vault-name-c>` -> `<thought-count-c>` thoughts
+
+### Example Commands
+
+Dry run:
+
+```bash
+python tools/import-obsidian-selfhosted.py \
+  "/path/to/Obsidian/<vault-name>" \
+  --vault-name <vault-name> \
+  --dry-run
+```
+
+Live import:
+
+```bash
+OPENBRAIN_DB_PASSWORD='your-postgres-password' \
+python tools/import-obsidian-selfhosted.py \
+  "/path/to/Obsidian/<vault-name>" \
+  --vault-name <vault-name> \
+  --limit 25 \
+  --verbose
+```
+
+If you explicitly want to include notes that would normally be flagged by the secret scanner:
+
+```bash
+OPENBRAIN_DB_PASSWORD='your-postgres-password' \
+python tools/import-obsidian-selfhosted.py \
+  "/path/to/Obsidian/<vault-name>" \
+  --vault-name <vault-name> \
+  --no-secret-scan \
+  --verbose
+```
+
+Warning: `--no-secret-scan` imports note contents verbatim. Any credentials, tokens, connection
+strings, or other sensitive-looking values present in your notes will be stored in OpenBrain and
+can be surfaced by semantic search later.
+
+### Notes
+
+- Imported thoughts are tagged with `metadata.source = obsidian`.
+- Imported thoughts are also tagged with `metadata.vault` so you can distinguish vaults later.
+- Embeddings use `qwen3-embedding` and are stored as `vector(4096)`.
