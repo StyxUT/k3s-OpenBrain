@@ -7,3 +7,7 @@ secrets/
 
 # Ignore temporary upstream clone used for image builds
 .upstream-OB1/
+
+# Ignore local importer artifacts
+tools/__pycache__/
+tools/obsidian-sync-log-selfhosted.json
