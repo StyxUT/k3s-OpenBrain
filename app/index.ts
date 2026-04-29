@@ -26,7 +26,7 @@ const DB_HOST = Deno.env.get("DB_HOST") || "127.0.0.1";
 const DB_PORT = parseInt(Deno.env.get("DB_PORT") || "5432", 10);
 const DB_NAME = Deno.env.get("DB_NAME") || "openbrain";
 const DB_USER = Deno.env.get("DB_USER") || "postgres";
-const DB_PASSWORD = Deno.env.get("DB_PASSWORD")!;
+const DB_PASSWORD = (Deno.env.get("DB_PASSWORD") || "").trimEnd();
 
 const EMBEDDING_API_BASE = Deno.env.get("EMBEDDING_API_BASE") || "https://openrouter.ai/api/v1";
 const EMBEDDING_API_KEY = Deno.env.get("EMBEDDING_API_KEY") || Deno.env.get("OPENROUTER_API_KEY") || "";
