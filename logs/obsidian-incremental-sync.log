@@ -1,0 +1,2037 @@
+2026-04-29 20:39:49 starting incremental import for BB
+Error: unable to resolve database password from --db-password, OPENBRAIN_DB_PASSWORD, or kubectl secret postgres-password
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+2026-04-29 20:39:49 import failed for BB; will retry next run
+2026-04-29 20:39:49 starting incremental import for EricBnTraciB
+Error: unable to resolve database password from --db-password, OPENBRAIN_DB_PASSWORD, or kubectl secret postgres-password
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+2026-04-29 20:39:49 import failed for EricBnTraciB; will retry next run
+2026-04-29 20:39:49 starting incremental import for StyxUT
+Error: unable to resolve database password from --db-password, OPENBRAIN_DB_PASSWORD, or kubectl secret postgres-password
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 65
+Thoughts generated: 147
+Thoughts skipped for secrets: 0
+2026-04-29 20:39:50 import failed for StyxUT; will retry next run
+2026-04-29 20:43:08 OPENBRAIN_DB_PASSWORD not set and kubectl cannot read postgres-password; skipping and retrying next run
+2026-04-29 20:43:14 OPENBRAIN_DB_PASSWORD not set and kubectl cannot read postgres-password; skipping and retrying next run
+2026-04-29 20:52:46 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 20:52:46 completed incremental import for BB
+2026-04-29 20:52:46 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 20:52:46 completed incremental import for EricBnTraciB
+2026-04-29 20:52:46 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 65
+Thoughts generated: 147
+Thoughts skipped for secrets: 0
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 490, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 458, in main
+    ensure_fingerprint_dedup(db_password)
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 347, in ensure_fingerprint_dedup
+    raise RuntimeError(result.stderr.strip() or result.stdout.strip())
+RuntimeError: E0429 20:52:47.129960   50837 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"http://localhost:8080/api?timeout=32s\": dial tcp 127.0.0.1:8080: connect: connection refused"
+E0429 20:52:47.133086   50837 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"http://localhost:8080/api?timeout=32s\": dial tcp 127.0.0.1:8080: connect: connection refused"
+E0429 20:52:47.133515   50837 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"http://localhost:8080/api?timeout=32s\": dial tcp 127.0.0.1:8080: connect: connection refused"
+E0429 20:52:47.135504   50837 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"http://localhost:8080/api?timeout=32s\": dial tcp 127.0.0.1:8080: connect: connection refused"
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+2026-04-29 20:52:47 import failed for StyxUT; will retry next run
+2026-04-29 21:09:48 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:09:48 completed incremental import for BB
+2026-04-29 21:09:48 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:09:48 completed incremental import for EricBnTraciB
+2026-04-29 21:09:48 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 65
+Thoughts generated: 147
+Thoughts skipped for secrets: 0
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 490, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 458, in main
+    ensure_fingerprint_dedup(db_password)
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 347, in ensure_fingerprint_dedup
+    raise RuntimeError(result.stderr.strip() or result.stdout.strip())
+RuntimeError: error: error reading input for Password
+2026-04-29 21:09:49 import failed for StyxUT; will retry next run
+2026-04-29 21:13:14 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:13:14 completed incremental import for BB
+2026-04-29 21:13:14 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:13:14 completed incremental import for EricBnTraciB
+2026-04-29 21:13:14 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 65
+Thoughts generated: 147
+Thoughts skipped for secrets: 0
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 490, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 458, in main
+    ensure_fingerprint_dedup(db_password)
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 347, in ensure_fingerprint_dedup
+    raise RuntimeError(result.stderr.strip() or result.stdout.strip())
+RuntimeError: error: error reading input for Password
+2026-04-29 21:13:14 import failed for StyxUT; will retry next run
+2026-04-29 21:17:08 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:17:08 completed incremental import for BB
+2026-04-29 21:17:08 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:17:09 completed incremental import for EricBnTraciB
+2026-04-29 21:17:09 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 65
+Thoughts generated: 147
+Thoughts skipped for secrets: 0
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 542, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 502, in main
+    ensure_fingerprint_dedup(db_password)
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 392, in ensure_fingerprint_dedup
+    raise RuntimeError(result.stderr.strip() or result.stdout.strip())
+RuntimeError: error: error reading input for Password
+2026-04-29 21:17:09 import failed for StyxUT; will retry next run
+2026-04-29 21:17:33 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:17:33 completed incremental import for BB
+2026-04-29 21:17:33 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:17:33 completed incremental import for EricBnTraciB
+2026-04-29 21:17:33 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 65
+Thoughts generated: 147
+Thoughts skipped for secrets: 0
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 542, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 512, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 357, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 134, in call_openbrain_tool
+    return parse_mcp_sse_payload(resp.read().decode())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 466, in read
+    return self._readall_chunked()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 573, in _readall_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-29 21:20:33 import failed for StyxUT; will retry next run
+2026-04-29 21:21:32 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:21:33 completed incremental import for BB
+2026-04-29 21:21:33 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:21:33 completed incremental import for EricBnTraciB
+2026-04-29 21:21:33 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 65
+Thoughts generated: 147
+Thoughts skipped for secrets: 0
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 566, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 531, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 371, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 145, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 113, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-29 21:24:33 import failed for StyxUT; will retry next run
+2026-04-29 21:25:14 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:25:14 completed incremental import for BB
+2026-04-29 21:25:14 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+
+No new thoughts to import
+2026-04-29 21:25:14 completed incremental import for EricBnTraciB
+2026-04-29 21:25:14 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 65
+Thoughts generated: 147
+Thoughts skipped for secrets: 0
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+
+Imported 147 thoughts
+2026-04-29 21:34:57 completed incremental import for StyxUT
+2026-04-29 21:43:15 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 21:43:15 completed incremental import for BB
+2026-04-29 21:43:15 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 21:43:15 completed incremental import for EricBnTraciB
+2026-04-29 21:43:15 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 21:43:15 completed incremental import for StyxUT
+2026-04-29 22:13:15 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 22:13:15 completed incremental import for BB
+2026-04-29 22:13:15 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 22:13:15 completed incremental import for EricBnTraciB
+2026-04-29 22:13:15 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 22:13:16 completed incremental import for StyxUT
+2026-04-29 22:43:16 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 22:43:16 completed incremental import for BB
+2026-04-29 22:43:16 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 22:43:16 completed incremental import for EricBnTraciB
+2026-04-29 22:43:16 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 22:43:16 completed incremental import for StyxUT
+2026-04-29 23:13:16 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 23:13:16 completed incremental import for BB
+2026-04-29 23:13:16 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 23:13:16 completed incremental import for EricBnTraciB
+2026-04-29 23:13:16 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 23:13:16 completed incremental import for StyxUT
+2026-04-29 23:43:16 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 23:43:17 completed incremental import for BB
+2026-04-29 23:43:17 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 23:43:17 completed incremental import for EricBnTraciB
+2026-04-29 23:43:17 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-29 23:43:17 completed incremental import for StyxUT
+2026-04-30 00:13:17 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 00:13:17 completed incremental import for BB
+2026-04-30 00:13:17 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 00:13:17 completed incremental import for EricBnTraciB
+2026-04-30 00:13:17 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 00:13:17 completed incremental import for StyxUT
+2026-04-30 00:43:17 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 00:43:17 completed incremental import for BB
+2026-04-30 00:43:17 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 00:43:18 completed incremental import for EricBnTraciB
+2026-04-30 00:43:18 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 00:43:18 completed incremental import for StyxUT
+2026-04-30 01:13:18 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 01:13:18 completed incremental import for BB
+2026-04-30 01:13:18 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 01:13:18 completed incremental import for EricBnTraciB
+2026-04-30 01:13:18 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 01:13:18 completed incremental import for StyxUT
+2026-04-30 01:43:18 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 01:43:18 completed incremental import for BB
+2026-04-30 01:43:18 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 01:43:18 completed incremental import for EricBnTraciB
+2026-04-30 01:43:18 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 01:43:18 completed incremental import for StyxUT
+2026-04-30 02:13:19 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 02:13:19 completed incremental import for BB
+2026-04-30 02:13:19 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 02:13:19 completed incremental import for EricBnTraciB
+2026-04-30 02:13:19 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 02:13:19 completed incremental import for StyxUT
+2026-04-30 02:43:19 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 02:43:19 completed incremental import for BB
+2026-04-30 02:43:19 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 02:43:19 completed incremental import for EricBnTraciB
+2026-04-30 02:43:19 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 02:43:19 completed incremental import for StyxUT
+2026-04-30 03:13:20 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 03:13:20 completed incremental import for BB
+2026-04-30 03:13:20 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 03:13:20 completed incremental import for EricBnTraciB
+2026-04-30 03:13:20 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 03:13:20 completed incremental import for StyxUT
+2026-04-30 03:43:20 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 03:43:20 completed incremental import for BB
+2026-04-30 03:43:20 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 03:43:20 completed incremental import for EricBnTraciB
+2026-04-30 03:43:20 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 03:43:20 completed incremental import for StyxUT
+2026-04-30 04:13:21 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 04:13:21 completed incremental import for BB
+2026-04-30 04:13:21 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 04:13:21 completed incremental import for EricBnTraciB
+2026-04-30 04:13:21 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 04:13:21 completed incremental import for StyxUT
+2026-04-30 04:43:21 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 04:43:21 completed incremental import for BB
+2026-04-30 04:43:21 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 04:43:21 completed incremental import for EricBnTraciB
+2026-04-30 04:43:21 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 04:43:22 completed incremental import for StyxUT
+2026-04-30 05:13:22 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 05:13:22 completed incremental import for BB
+2026-04-30 05:13:22 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 05:13:22 completed incremental import for EricBnTraciB
+2026-04-30 05:13:22 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 05:13:22 completed incremental import for StyxUT
+2026-04-30 05:43:22 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 05:43:22 completed incremental import for BB
+2026-04-30 05:43:22 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 05:43:23 completed incremental import for EricBnTraciB
+2026-04-30 05:43:23 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 05:43:23 completed incremental import for StyxUT
+2026-04-30 06:13:23 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 06:13:23 completed incremental import for BB
+2026-04-30 06:13:23 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 06:13:23 completed incremental import for EricBnTraciB
+2026-04-30 06:13:23 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 06:13:23 completed incremental import for StyxUT
+2026-04-30 06:43:23 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 06:43:23 completed incremental import for BB
+2026-04-30 06:43:23 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 06:43:24 completed incremental import for EricBnTraciB
+2026-04-30 06:43:24 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 06:43:24 completed incremental import for StyxUT
+2026-04-30 07:13:24 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 07:13:24 completed incremental import for BB
+2026-04-30 07:13:24 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 07:13:24 completed incremental import for EricBnTraciB
+2026-04-30 07:13:24 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 07:13:24 completed incremental import for StyxUT
+2026-04-30 07:43:24 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 07:43:24 completed incremental import for BB
+2026-04-30 07:43:24 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 07:43:24 completed incremental import for EricBnTraciB
+2026-04-30 07:43:24 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 07:43:25 completed incremental import for StyxUT
+2026-04-30 08:13:25 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 2
+Thoughts generated: 2
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 573, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 538, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 372, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 146, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 114, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-30 08:23:25 import failed for BB; will retry next run
+2026-04-30 08:23:25 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 08:23:25 completed incremental import for EricBnTraciB
+2026-04-30 08:23:25 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 08:23:25 completed incremental import for StyxUT
+2026-04-30 08:53:25 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 3
+Thoughts generated: 6
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 573, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 538, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 372, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 146, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 114, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-30 09:03:26 import failed for BB; will retry next run
+2026-04-30 09:03:26 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 09:03:26 completed incremental import for EricBnTraciB
+2026-04-30 09:03:26 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 09:03:26 completed incremental import for StyxUT
+2026-04-30 09:33:26 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 3
+Thoughts generated: 6
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 573, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 538, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 372, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 146, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 114, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-30 09:43:26 import failed for BB; will retry next run
+2026-04-30 09:43:26 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 09:43:27 completed incremental import for EricBnTraciB
+2026-04-30 09:43:27 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 09:43:27 completed incremental import for StyxUT
+2026-04-30 10:13:27 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 4
+Thoughts generated: 10
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 573, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 538, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 372, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 146, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 114, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-30 10:23:27 import failed for BB; will retry next run
+2026-04-30 10:23:27 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 10:23:27 completed incremental import for EricBnTraciB
+2026-04-30 10:23:27 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 10:23:27 completed incremental import for StyxUT
+2026-04-30 10:53:27 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 5
+Thoughts generated: 16
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 573, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 538, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 372, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 146, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 114, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-30 11:03:28 import failed for BB; will retry next run
+2026-04-30 11:03:28 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 11:03:28 completed incremental import for EricBnTraciB
+2026-04-30 11:03:28 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 11:03:28 completed incremental import for StyxUT
+2026-04-30 11:33:28 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 12
+Thoughts generated: 53
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 573, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 538, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 372, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 146, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 114, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-30 11:43:28 import failed for BB; will retry next run
+2026-04-30 11:43:28 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 11:43:28 completed incremental import for EricBnTraciB
+2026-04-30 11:43:28 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 11:43:28 completed incremental import for StyxUT
+2026-04-30 12:13:28 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 16
+Thoughts generated: 65
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 573, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 538, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 372, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 146, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 114, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-30 12:23:29 import failed for BB; will retry next run
+2026-04-30 12:23:29 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 12:23:29 completed incremental import for EricBnTraciB
+2026-04-30 12:23:29 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 12:23:29 completed incremental import for StyxUT
+2026-04-30 12:53:29 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 17
+Thoughts generated: 76
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+
+Imported 76 thoughts
+2026-04-30 13:59:24 completed incremental import for BB
+2026-04-30 13:59:24 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 13:59:24 completed incremental import for EricBnTraciB
+2026-04-30 13:59:24 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 13:59:24 completed incremental import for StyxUT
+2026-04-30 14:29:24 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 6
+Thoughts generated: 9
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+Traceback (most recent call last):
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 573, in <module>
+    main()
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 538, in main
+    insert_thought_via_api(thought["content"])
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 372, in insert_thought_via_api
+    result = call_openbrain_tool("capture_thought", {"content": content})
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 146, in call_openbrain_tool
+    return parse_mcp_sse_payload(read_first_sse_event(resp))
+  File "/Users/openclaw/.openclaw/workspace-coder/k3s-OpenBrain/tools/import-obsidian-selfhosted.py", line 114, in read_first_sse_event
+    line = resp.readline().decode()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 657, in readline
+    return super().readline(limit)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 649, in peek
+    return self._peek_chunked(n)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 685, in _peek_chunked
+    chunk_left = self._get_chunk_left()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 556, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 516, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+2026-04-30 14:39:24 import failed for BB; will retry next run
+2026-04-30 14:39:24 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 14:39:24 completed incremental import for EricBnTraciB
+2026-04-30 14:39:24 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 14:39:24 completed incremental import for StyxUT
+2026-04-30 15:09:32 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-04-30 15:39:33 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 7
+Thoughts generated: 12
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+
+Imported 12 thoughts
+2026-04-30 16:36:07 completed incremental import for BB
+2026-04-30 16:36:07 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 16:36:07 completed incremental import for EricBnTraciB
+2026-04-30 16:36:07 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 16:36:07 completed incremental import for StyxUT
+2026-04-30 17:06:07 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 17:06:08 completed incremental import for BB
+2026-04-30 17:06:08 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 17:06:08 completed incremental import for EricBnTraciB
+2026-04-30 17:06:08 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 17:06:08 completed incremental import for StyxUT
+2026-04-30 17:36:18 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-04-30 18:06:28 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-04-30 18:36:38 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-04-30 19:06:39 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 19:06:39 completed incremental import for BB
+2026-04-30 19:06:39 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 19:06:39 completed incremental import for EricBnTraciB
+2026-04-30 19:06:39 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 19:06:39 completed incremental import for StyxUT
+2026-04-30 19:36:39 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 19:36:39 completed incremental import for BB
+2026-04-30 19:36:39 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 19:36:39 completed incremental import for EricBnTraciB
+2026-04-30 19:36:39 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 19:36:39 completed incremental import for StyxUT
+2026-04-30 20:06:40 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 20:06:40 completed incremental import for BB
+2026-04-30 20:06:40 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 20:06:40 completed incremental import for EricBnTraciB
+2026-04-30 20:06:40 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 20:06:40 completed incremental import for StyxUT
+2026-04-30 20:36:40 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 20:36:40 completed incremental import for BB
+2026-04-30 20:36:40 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 20:36:40 completed incremental import for EricBnTraciB
+2026-04-30 20:36:40 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 20:36:40 completed incremental import for StyxUT
+2026-04-30 21:06:40 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 21:06:41 completed incremental import for BB
+2026-04-30 21:06:41 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 21:06:41 completed incremental import for EricBnTraciB
+2026-04-30 21:06:41 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 21:06:41 completed incremental import for StyxUT
+2026-04-30 21:36:41 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 21:36:41 completed incremental import for BB
+2026-04-30 21:36:41 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 21:36:41 completed incremental import for EricBnTraciB
+2026-04-30 21:36:41 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 21:36:41 completed incremental import for StyxUT
+2026-04-30 22:06:41 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 22:06:41 completed incremental import for BB
+2026-04-30 22:06:41 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 22:06:41 completed incremental import for EricBnTraciB
+2026-04-30 22:06:42 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 22:06:42 completed incremental import for StyxUT
+2026-04-30 22:36:42 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 22:36:42 completed incremental import for BB
+2026-04-30 22:36:42 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 22:36:42 completed incremental import for EricBnTraciB
+2026-04-30 22:36:42 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 22:36:42 completed incremental import for StyxUT
+2026-04-30 23:06:42 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 23:06:42 completed incremental import for BB
+2026-04-30 23:06:42 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 23:06:42 completed incremental import for EricBnTraciB
+2026-04-30 23:06:42 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-04-30 23:06:42 completed incremental import for StyxUT
+2026-05-01 10:46:38 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 10:46:40 completed incremental import for BB
+2026-05-01 10:46:40 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 10:46:40 completed incremental import for EricBnTraciB
+2026-05-01 10:46:40 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 10:46:40 completed incremental import for StyxUT
+2026-05-01 11:16:40 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 9
+Thoughts generated: 12
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+
+Imported 12 thoughts
+2026-05-01 12:02:40 completed incremental import for BB
+2026-05-01 12:02:40 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 12:02:40 completed incremental import for EricBnTraciB
+2026-05-01 12:02:40 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 12:02:40 completed incremental import for StyxUT
+2026-05-01 12:32:50 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-05-01 13:02:50 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 13:02:50 completed incremental import for BB
+2026-05-01 13:02:50 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 13:02:51 completed incremental import for EricBnTraciB
+2026-05-01 13:02:51 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 13:02:51 completed incremental import for StyxUT
+2026-05-01 13:32:59 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-05-01 14:03:09 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-05-01 14:33:19 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-05-01 15:03:29 ollama unavailable at http://192.168.0.13:11434/v1; skipping and retrying next run
+2026-05-01 15:33:29 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 1
+Thoughts generated: 1
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+Using OpenBrain API import path at http://k3s-nodes.home:8000
+Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)
+Import mode: OpenBrain API capture_thought (embedding via server-configured model: qwen3-embedding)
+
+Imported 1 thoughts
+2026-05-01 15:39:25 completed incremental import for BB
+2026-05-01 15:39:25 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 15:39:25 completed incremental import for EricBnTraciB
+2026-05-01 15:39:25 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 15:39:25 completed incremental import for StyxUT
+2026-05-01 16:09:26 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 16:09:26 completed incremental import for BB
+2026-05-01 16:09:26 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 16:09:26 completed incremental import for EricBnTraciB
+2026-05-01 16:09:26 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 16:09:26 completed incremental import for StyxUT
+2026-05-01 16:39:26 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 16:39:26 completed incremental import for BB
+2026-05-01 16:39:26 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 16:39:26 completed incremental import for EricBnTraciB
+2026-05-01 16:39:26 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 16:39:26 completed incremental import for StyxUT
+2026-05-01 17:09:27 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 17:09:27 completed incremental import for BB
+2026-05-01 17:09:27 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 17:09:27 completed incremental import for EricBnTraciB
+2026-05-01 17:09:27 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 17:09:27 completed incremental import for StyxUT
+2026-05-01 17:39:27 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 17:39:27 completed incremental import for BB
+2026-05-01 17:39:27 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 17:39:27 completed incremental import for EricBnTraciB
+2026-05-01 17:39:27 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 17:39:27 completed incremental import for StyxUT
+2026-05-01 18:09:27 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 18:09:28 completed incremental import for BB
+2026-05-01 18:09:28 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 18:09:28 completed incremental import for EricBnTraciB
+2026-05-01 18:09:28 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 18:09:28 completed incremental import for StyxUT
+2026-05-01 18:39:28 starting incremental import for BB
+Vault: /Users/Obsidian/BB
+Vault name: BB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 18:39:28 completed incremental import for BB
+2026-05-01 18:39:28 starting incremental import for EricBnTraciB
+Vault: /Users/Obsidian/EricBnTraciB
+Vault name: EricBnTraciB
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 18:39:28 completed incremental import for EricBnTraciB
+2026-05-01 18:39:28 starting incremental import for StyxUT
+Vault: /Users/Obsidian/StyxUT/StyxUT
+Vault name: StyxUT
+Notes selected: 0
+Thoughts generated: 0
+Thoughts skipped for secrets: 0
+Embedding model configured: qwen3-embedding
+
+No new thoughts to import
+2026-05-01 18:39:28 completed incremental import for StyxUT

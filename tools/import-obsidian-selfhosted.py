@@ -16,8 +16,9 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-import requests
 import subprocess
+from typing import Optional
+from urllib import error, request
 
 
 ALWAYS_SKIP = {".obsidian", ".trash", ".git", "node_modules"}
@@ -26,6 +27,10 @@ WHOLE_NOTE_THRESHOLD = 500
 EMBEDDING_MODEL = "qwen3-embedding"
 MAX_RETRIES = 3
 RETRY_BACKOFF = 2
+KUBE_API_SERVER = os.environ.get("KUBE_API_SERVER", "https://k3s-nodes.home:6443")
+OPENBRAIN_API_BASE = os.environ.get("OPENBRAIN_API_BASE", "http://k3s-nodes.home:8000")
+OPENBRAIN_API_KEY = os.environ.get("OPENBRAIN_API_KEY") or os.environ.get("OPENBRAIN_MCP_KEY") or ""
+OPENBRAIN_API_TIMEOUT = int(os.environ.get("OPENBRAIN_API_TIMEOUT", "600"))
 
 WIKILINK_RE = re.compile(r"\[\[([^\]|#]+?)(?:\|[^\]]+)?\]\]")
 INLINE_TAG_RE = re.compile(r"(?<!\w)#([A-Za-z0-9_/-]+)")
@@ -49,6 +54,96 @@ SECRET_PATTERNS = [
         re.compile(r"(?:postgres|mysql|mongodb|redis)://[^:]+:[^@]+@", re.IGNORECASE),
     ),
 ]
+
+
+def run_kubectl(args: list[str], *, input_text: Optional[str] = None, env: Optional[dict] = None) -> subprocess.CompletedProcess:
+    command = ["kubectl"]
+    if KUBE_API_SERVER:
+        command.append(f"--server={KUBE_API_SERVER}")
+    command.extend(args)
+    return subprocess.run(
+        command,
+        input=input_text,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+
+
+def resolve_db_password(explicit_password: str) -> str:
+    if explicit_password:
+        return explicit_password
+
+    result = run_kubectl(
+        [
+            "get",
+            "secret",
+            "postgres-password",
+            "-o",
+            "jsonpath={.data.POSTGRES_PASSWORD}",
+        ]
+    )
+    if result.returncode != 0 or not result.stdout.strip():
+        return ""
+
+    try:
+        return subprocess.run(
+            ["python3", "-c", "import base64,sys;print(base64.b64decode(sys.stdin.read()).decode(), end='')"],
+            input=result.stdout.strip(),
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout
+    except subprocess.CalledProcessError:
+        return ""
+
+
+def parse_mcp_sse_payload(raw: str) -> dict:
+    payload = None
+    for line in raw.splitlines():
+        if line.startswith("data: "):
+            payload = line[6:]
+    if not payload:
+        raise RuntimeError(f"unexpected MCP response: {raw[:500]}")
+    return json.loads(payload)
+
+
+def read_first_sse_event(resp) -> str:
+    lines = []
+    while True:
+        line = resp.readline().decode()
+        if line in ("", "\n", "\r\n"):
+            if lines:
+                return "".join(lines)
+            continue
+        lines.append(line)
+
+
+def call_openbrain_tool(tool_name: str, arguments: dict) -> dict:
+    if not OPENBRAIN_API_KEY:
+        raise RuntimeError("OPENBRAIN_API_KEY or OPENBRAIN_MCP_KEY is not set")
+
+    payload = json.dumps(
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "tools/call",
+            "params": {"name": tool_name, "arguments": arguments},
+        }
+    ).encode()
+    req = request.Request(
+        OPENBRAIN_API_BASE,
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {OPENBRAIN_API_KEY}",
+            "x-brain-key": OPENBRAIN_API_KEY,
+            "Content-Type": "application/json",
+            "Accept": "application/json, text/event-stream",
+        },
+        method="POST",
+    )
+    with request.urlopen(req, timeout=OPENBRAIN_API_TIMEOUT) as resp:
+        return parse_mcp_sse_payload(read_first_sse_event(resp))
 
 
 def scan_for_secrets(text: str):
@@ -178,22 +273,23 @@ def iter_notes(vault_root: Path, skip_folders: set[str]):
 
 
 def generate_embedding(text: str, api_base: str, api_key: str):
+    payload = json.dumps({"model": EMBEDDING_MODEL, "input": text[:8000]}).encode()
     for attempt in range(MAX_RETRIES):
         try:
-            resp = requests.post(
+            req = request.Request(
                 f"{api_base}/embeddings",
+                data=payload,
                 headers={
                     "Authorization": f"Bearer {api_key}",
                     "Content-Type": "application/json",
                 },
-                json={"model": EMBEDDING_MODEL, "input": text[:8000]},
-                timeout=180,
+                method="POST",
             )
-            resp.raise_for_status()
-            return resp.json()["data"][0]["embedding"]
-        except requests.RequestException as exc:
+            with request.urlopen(req, timeout=180) as resp:
+                return json.loads(resp.read().decode())["data"][0]["embedding"]
+        except (error.URLError, error.HTTPError, TimeoutError, json.JSONDecodeError, KeyError) as exc:
             if attempt == MAX_RETRIES - 1:
-                raise
+                raise RuntimeError(f"embedding request failed: {exc}") from exc
             wait = RETRY_BACKOFF * (2 ** attempt)
             print(f"Embedding retry in {wait}s: {exc}", flush=True)
             time.sleep(wait)
@@ -213,10 +309,13 @@ def load_sync_log(script_dir: Path, vault_name: str) -> dict:
     path = sync_log_path(script_dir, vault_name)
     if path.exists():
         try:
-            return json.loads(path.read_text())
+            log = json.loads(path.read_text())
+            log.setdefault("thoughts", {})
+            log.setdefault("imported_fingerprints", [])
+            return log
         except Exception:
             pass
-    return {"vault_path": "", "last_run": "", "thoughts": {}}
+    return {"vault_path": "", "last_run": "", "thoughts": {}, "imported_fingerprints": []}
 
 
 def save_sync_log(script_dir: Path, vault_name: str, log: dict):
@@ -236,18 +335,20 @@ def insert_thought_postgres(
     embedding: list[float],
     metadata: dict,
     created_at: str,
+    fingerprint: str,
     db_password: str,
 ):
     sql = (
-        "INSERT INTO thoughts (content, embedding, metadata, created_at) "
+        "INSERT INTO thoughts (content, embedding, metadata, created_at, content_fingerprint) "
         f"VALUES ({sql_literal(content)}, {vector_literal(embedding)}::vector, "
-        f"{sql_literal(json.dumps(metadata))}::jsonb, {sql_literal(created_at)}::timestamptz);"
+        f"{sql_literal(json.dumps(metadata))}::jsonb, {sql_literal(created_at)}::timestamptz, "
+        f"{sql_literal(fingerprint)}) "
+        "ON CONFLICT (content_fingerprint) DO NOTHING;"
     )
     env = os.environ.copy()
     env["PGPASSWORD"] = db_password
-    result = subprocess.run(
+    result = run_kubectl(
         [
-            "kubectl",
             "exec",
             "-i",
             "deploy/postgres",
@@ -261,9 +362,46 @@ def insert_thought_postgres(
             "ON_ERROR_STOP=1",
         ],
         env=env,
-        input=sql,
-        capture_output=True,
-        text=True,
+        input_text=sql,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or result.stdout.strip())
+
+
+def insert_thought_via_api(content: str):
+    result = call_openbrain_tool("capture_thought", {"content": content})
+    if result.get("error"):
+        raise RuntimeError(json.dumps(result["error"]))
+
+
+def ensure_fingerprint_dedup(db_password: str):
+    sql = """
+ALTER TABLE thoughts
+  ADD COLUMN IF NOT EXISTS content_fingerprint TEXT;
+
+CREATE UNIQUE INDEX IF NOT EXISTS thoughts_content_fingerprint_idx
+  ON thoughts (content_fingerprint)
+  WHERE content_fingerprint IS NOT NULL;
+""".strip()
+
+    env = os.environ.copy()
+    env["PGPASSWORD"] = db_password
+    result = run_kubectl(
+        [
+            "exec",
+            "-i",
+            "deploy/postgres",
+            "--",
+            "psql",
+            "-U",
+            "postgres",
+            "-d",
+            "openbrain",
+            "-v",
+            "ON_ERROR_STOP=1",
+        ],
+        env=env,
+        input_text=sql,
     )
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip() or result.stdout.strip())
@@ -277,7 +415,7 @@ def main():
     parser.add_argument("--min-words", type=int, default=DEFAULT_MIN_WORDS)
     parser.add_argument("--skip-folders", type=str, default="")
     parser.add_argument("--verbose", action="store_true")
-    parser.add_argument("--no-secret-scan", action="store_true")
+    parser.add_argument("--secret-scan", action="store_true")
     parser.add_argument("--embedding-api-base", default=os.environ.get("EMBEDDING_API_BASE", "http://192.168.0.13:11434/v1"))
     parser.add_argument("--embedding-api-key", default=os.environ.get("EMBEDDING_API_KEY", "ollama"))
     parser.add_argument("--db-password", default=os.environ.get("OPENBRAIN_DB_PASSWORD", ""))
@@ -323,17 +461,21 @@ def main():
 
     thoughts = []
     secrets = []
+    imported_fingerprints = set(sync_log.get("imported_fingerprints", []))
 
     for note in notes:
         note_date = extract_date(note["meta"], note["full_path"])
         for chunk in chunk_note(note):
             section_part = f" > {chunk['section']}" if chunk["section"] else ""
             content = f"[Obsidian: {note['title']} | {note['folder']}{section_part}] {chunk['content']}"
-            if not args.no_secret_scan:
+            if args.secret_scan:
                 secret = scan_for_secrets(content)
                 if secret:
                     secrets.append({"path": note["path"], "reason": secret})
                     continue
+            fingerprint = content_fingerprint(content)
+            if fingerprint in imported_fingerprints:
+                continue
             thoughts.append(
                 {
                     "content": content,
@@ -345,7 +487,7 @@ def main():
                         "tags": note["tags"],
                         "date": note_date,
                         "wikilinks": note["wikilinks"],
-                        "content_fingerprint": content_fingerprint(content),
+                        "content_fingerprint": fingerprint,
                     },
                 }
             )
@@ -355,6 +497,7 @@ def main():
     print(f"Notes selected: {len(notes)}")
     print(f"Thoughts generated: {len(thoughts)}")
     print(f"Thoughts skipped for secrets: {len(secrets)}")
+    print(f"Embedding model configured: {EMBEDDING_MODEL}")
 
     if args.verbose and secrets:
         print("\nSecret scan skips:")
@@ -368,20 +511,46 @@ def main():
             print(f"- {preview}{'...' if len(thought['content']) > 140 else ''}")
         return
 
-    if not args.db_password:
-        print("Error: --db-password or OPENBRAIN_DB_PASSWORD is required for live import", file=sys.stderr)
+    if not thoughts:
+        print("\nNo new thoughts to import")
+        return
+
+    db_password = resolve_db_password(args.db_password)
+    use_api_fallback = bool(OPENBRAIN_API_KEY)
+
+    if use_api_fallback:
+        print(f"Using OpenBrain API import path at {OPENBRAIN_API_BASE}")
+        print("Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)")
+    elif db_password:
+        ensure_fingerprint_dedup(db_password)
+    else:
+        print("Error: unable to resolve database password from --db-password, OPENBRAIN_DB_PASSWORD, or kubectl secret postgres-password", file=sys.stderr)
         sys.exit(1)
 
     inserted = 0
+    imported_fingerprint_list = sync_log.setdefault("imported_fingerprints", [])
+    if use_api_fallback:
+        print(f"Import mode: OpenBrain API capture_thought (embedding via server-configured model: {EMBEDDING_MODEL})")
+    else:
+        print(f"Import mode: direct Postgres + local embeddings via {EMBEDDING_MODEL}")
     for idx, thought in enumerate(thoughts, start=1):
-        embedding = generate_embedding(thought["content"], args.embedding_api_base, args.embedding_api_key)
-        insert_thought_postgres(
-            thought["content"],
-            embedding,
-            thought["metadata"],
-            f"{thought['metadata']['date']}T00:00:00Z",
-            args.db_password,
-        )
+        if use_api_fallback:
+            insert_thought_via_api(thought["content"])
+        else:
+            embedding = generate_embedding(thought["content"], args.embedding_api_base, args.embedding_api_key)
+            insert_thought_postgres(
+                thought["content"],
+                embedding,
+                thought["metadata"],
+                f"{thought['metadata']['date']}T00:00:00Z",
+                thought["metadata"]["content_fingerprint"],
+                db_password,
+            )
+        fingerprint = thought["metadata"]["content_fingerprint"]
+        if fingerprint not in imported_fingerprints:
+            imported_fingerprints.add(fingerprint)
+            imported_fingerprint_list.append(fingerprint)
+            save_sync_log(script_dir, vault_name, sync_log)
         inserted += 1
         if args.verbose and (idx % 10 == 0 or idx == len(thoughts)):
             print(f"Imported {idx}/{len(thoughts)}")
