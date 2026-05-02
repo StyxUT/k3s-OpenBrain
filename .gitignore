@@ -11,3 +11,7 @@ secrets/
 # Ignore local importer artifacts
 tools/__pycache__/
 tools/obsidian-sync*.json
+tools/obsidian-sync.env
+
+# Ignore logs directory
+logs/
