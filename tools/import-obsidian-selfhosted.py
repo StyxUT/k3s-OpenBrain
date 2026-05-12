@@ -2,8 +2,7 @@
 """
 Import an Obsidian vault into self-hosted OpenBrain.
 
-Supports dry-run previews and live import against the self-hosted PostgreSQL
-schema used by the k3s OpenBrain deployment.
+Supports dry-run previews and live import through the OpenBrain API.
 """
 
 import argparse
@@ -16,8 +15,6 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-import subprocess
-from typing import Optional
 from urllib import error, request
 
 
@@ -25,9 +22,6 @@ ALWAYS_SKIP = {".obsidian", ".trash", ".git", "node_modules"}
 DEFAULT_MIN_WORDS = 20
 WHOLE_NOTE_THRESHOLD = 500
 EMBEDDING_MODEL = "qwen3-embedding"
-MAX_RETRIES = 3
-RETRY_BACKOFF = 2
-KUBE_API_SERVER = os.environ.get("KUBE_API_SERVER", "https://k3s-nodes.home:6443")
 OPENBRAIN_API_BASE = os.environ.get("OPENBRAIN_API_BASE", "http://k3s-nodes.home:8000")
 OPENBRAIN_API_KEY = os.environ.get("OPENBRAIN_API_KEY") or os.environ.get("OPENBRAIN_MCP_KEY") or ""
 OPENBRAIN_API_TIMEOUT = int(os.environ.get("OPENBRAIN_API_TIMEOUT", "600"))
@@ -55,47 +49,6 @@ SECRET_PATTERNS = [
     ),
 ]
 
-
-def run_kubectl(args: list[str], *, input_text: Optional[str] = None, env: Optional[dict] = None) -> subprocess.CompletedProcess:
-    command = ["kubectl"]
-    if KUBE_API_SERVER:
-        command.append(f"--server={KUBE_API_SERVER}")
-    command.extend(args)
-    return subprocess.run(
-        command,
-        input=input_text,
-        capture_output=True,
-        text=True,
-        env=env,
-    )
-
-
-def resolve_db_password(explicit_password: str) -> str:
-    if explicit_password:
-        return explicit_password
-
-    result = run_kubectl(
-        [
-            "get",
-            "secret",
-            "postgres-password",
-            "-o",
-            "jsonpath={.data.POSTGRES_PASSWORD}",
-        ]
-    )
-    if result.returncode != 0 or not result.stdout.strip():
-        return ""
-
-    try:
-        return subprocess.run(
-            ["python3", "-c", "import base64,sys;print(base64.b64decode(sys.stdin.read()).decode(), end='')"],
-            input=result.stdout.strip(),
-            capture_output=True,
-            text=True,
-            check=True,
-        ).stdout
-    except subprocess.CalledProcessError:
-        return ""
 
 
 def parse_mcp_sse_payload(raw: str) -> dict:
@@ -322,90 +275,10 @@ def save_sync_log(script_dir: Path, vault_name: str, log: dict):
     sync_log_path(script_dir, vault_name).write_text(json.dumps(log, indent=2) + "\n")
 
 
-def sql_literal(value: str) -> str:
-    return "'" + value.replace("'", "''") + "'"
-
-
-def vector_literal(values: list[float]) -> str:
-    return "'[%s]'" % ",".join(format(v, ".12g") for v in values)
-
-
-def insert_thought_postgres(
-    content: str,
-    embedding: list[float],
-    metadata: dict,
-    created_at: str,
-    fingerprint: str,
-    db_password: str,
-):
-    sql = (
-        "INSERT INTO thoughts (content, embedding, metadata, created_at, content_fingerprint) "
-        f"VALUES ({sql_literal(content)}, {vector_literal(embedding)}::vector, "
-        f"{sql_literal(json.dumps(metadata))}::jsonb, {sql_literal(created_at)}::timestamptz, "
-        f"{sql_literal(fingerprint)}) "
-        "ON CONFLICT (content_fingerprint) DO NOTHING;"
-    )
-    env = os.environ.copy()
-    env["PGPASSWORD"] = db_password
-    result = run_kubectl(
-        [
-            "exec",
-            "-i",
-            "deploy/postgres",
-            "--",
-            "psql",
-            "-U",
-            "postgres",
-            "-d",
-            "openbrain",
-            "-v",
-            "ON_ERROR_STOP=1",
-        ],
-        env=env,
-        input_text=sql,
-    )
-    if result.returncode != 0:
-        raise RuntimeError(result.stderr.strip() or result.stdout.strip())
-
-
 def insert_thought_via_api(content: str):
     result = call_openbrain_tool("capture_thought", {"content": content})
     if result.get("error"):
         raise RuntimeError(json.dumps(result["error"]))
-
-
-def ensure_fingerprint_dedup(db_password: str):
-    sql = """
-ALTER TABLE thoughts
-  ADD COLUMN IF NOT EXISTS content_fingerprint TEXT;
-
-CREATE UNIQUE INDEX IF NOT EXISTS thoughts_content_fingerprint_idx
-  ON thoughts (content_fingerprint)
-  WHERE content_fingerprint IS NOT NULL;
-""".strip()
-
-    env = os.environ.copy()
-    env["PGPASSWORD"] = db_password
-    result = run_kubectl(
-        [
-            "exec",
-            "-i",
-            "deploy/postgres",
-            "--",
-            "psql",
-            "-U",
-            "postgres",
-            "-d",
-            "openbrain",
-            "-v",
-            "ON_ERROR_STOP=1",
-        ],
-        env=env,
-        input_text=sql,
-    )
-    if result.returncode != 0:
-        raise RuntimeError(result.stderr.strip() or result.stdout.strip())
-
 
 def main():
     parser = argparse.ArgumentParser(description="Import an Obsidian vault into self-hosted OpenBrain")
@@ -416,9 +289,6 @@ def main():
     parser.add_argument("--skip-folders", type=str, default="")
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--secret-scan", action="store_true")
-    parser.add_argument("--embedding-api-base", default=os.environ.get("EMBEDDING_API_BASE", "http://192.168.0.13:11434/v1"))
-    parser.add_argument("--embedding-api-key", default=os.environ.get("EMBEDDING_API_KEY", "ollama"))
-    parser.add_argument("--db-password", default=os.environ.get("OPENBRAIN_DB_PASSWORD", ""))
     parser.add_argument("--vault-name", default="")
     args = parser.parse_args()
 
@@ -515,37 +385,18 @@ def main():
         print("\nNo new thoughts to import")
         return
 
-    db_password = resolve_db_password(args.db_password)
-    use_api_fallback = bool(OPENBRAIN_API_KEY)
-
-    if use_api_fallback:
-        print(f"Using OpenBrain API import path at {OPENBRAIN_API_BASE}")
-        print("Metadata extraction model handled by OpenBrain server config (expected: qwen3.5:27b)")
-    elif db_password:
-        ensure_fingerprint_dedup(db_password)
-    else:
-        print("Error: unable to resolve database password from --db-password, OPENBRAIN_DB_PASSWORD, or kubectl secret postgres-password", file=sys.stderr)
+    if not OPENBRAIN_API_KEY:
+        print("Error: OPENBRAIN_API_KEY or OPENBRAIN_MCP_KEY is not set", file=sys.stderr)
         sys.exit(1)
+
+    print(f"Using OpenBrain API import path at {OPENBRAIN_API_BASE}")
+    print("Metadata extraction model handled by OpenBrain server config (expected: qwen3.6:27b)")
 
     inserted = 0
     imported_fingerprint_list = sync_log.setdefault("imported_fingerprints", [])
-    if use_api_fallback:
-        print(f"Import mode: OpenBrain API capture_thought (embedding via server-configured model: {EMBEDDING_MODEL})")
-    else:
-        print(f"Import mode: direct Postgres + local embeddings via {EMBEDDING_MODEL}")
+    print(f"Import mode: OpenBrain API capture_thought (embedding via server-configured model: {EMBEDDING_MODEL})")
     for idx, thought in enumerate(thoughts, start=1):
-        if use_api_fallback:
-            insert_thought_via_api(thought["content"])
-        else:
-            embedding = generate_embedding(thought["content"], args.embedding_api_base, args.embedding_api_key)
-            insert_thought_postgres(
-                thought["content"],
-                embedding,
-                thought["metadata"],
-                f"{thought['metadata']['date']}T00:00:00Z",
-                thought["metadata"]["content_fingerprint"],
-                db_password,
-            )
+        insert_thought_via_api(thought["content"])
         fingerprint = thought["metadata"]["content_fingerprint"]
         if fingerprint not in imported_fingerprints:
             imported_fingerprints.add(fingerprint)

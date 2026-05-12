@@ -10,7 +10,6 @@ LOG_DIR="$ROOT/logs"
 LOG_FILE="$LOG_DIR/obsidian-incremental-sync.log"
 LOCK_DIR=/tmp/openbrain-obsidian-sync.lock
 OLLAMA_BASE="${EMBEDDING_API_BASE:-http://192.168.0.13:11434/v1}"
-KUBE_API_SERVER="${KUBE_API_SERVER:-https://k3s-nodes.home:6443}"
 
 mkdir -p "$LOG_DIR"
 
@@ -41,16 +40,9 @@ if ! curl -fsS --max-time 10 "$OLLAMA_BASE/models" >/dev/null 2>&1; then
   exit 0
 fi
 
-if [[ -z "${OPENBRAIN_DB_PASSWORD:-}" && -z "${OPENBRAIN_API_KEY:-}" && -z "${OPENBRAIN_MCP_KEY:-}" ]]; then
-  if ! command -v kubectl >/dev/null 2>&1; then
-    log "no DB password, API key, or kubectl access available; skipping and retrying next run"
-    exit 0
-  fi
-
-  if ! kubectl --server="$KUBE_API_SERVER" get secret postgres-password -o jsonpath='{.data.POSTGRES_PASSWORD}' >/dev/null 2>&1; then
-    log "no DB password or API key available, and kubectl cannot read postgres-password via $KUBE_API_SERVER; skipping and retrying next run"
-    exit 0
-  fi
+if [[ -z "${OPENBRAIN_API_KEY:-}" && -z "${OPENBRAIN_MCP_KEY:-}" ]]; then
+  log "no OpenBrain API key available; skipping and retrying next run"
+  exit 0
 fi
 
 cd "$ROOT" || exit 1

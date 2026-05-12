@@ -12,7 +12,7 @@ Kubernetes manifests for running OpenBrain in the existing k3s cluster.
 ## Model Configuration
 
 - Chat API: `http://192.168.0.13:11434/v1`
-- Chat model: `qwen3.5:27b`
+- Chat model: `qwen3.6:27b`
 - Embedding API: `http://192.168.0.13:11434/v1`
 - Embedding model: `qwen3-embedding`
 - Embedding dimension: `4096`
@@ -63,8 +63,8 @@ curl -X POST http://192.168.0.211:8000 \
 
 This repo includes a self-hosted Obsidian importer at `tools/import-obsidian-selfhosted.py`.
 
-It imports notes directly into the shared `thoughts` table, generates embeddings through Ollama,
-and stores vault-specific metadata alongside each imported thought.
+It imports notes through the OpenBrain API and stores vault-specific metadata alongside each imported thought.
+Embeddings and metadata extraction are handled by the OpenBrain server.
 
 ### Multi-Vault Workflow
 
@@ -99,7 +99,7 @@ python tools/import-obsidian-selfhosted.py \
 Live import:
 
 ```bash
-OPENBRAIN_DB_PASSWORD='your-postgres-password' \
+OPENBRAIN_MCP_KEY='your-mcp-key' \
 python tools/import-obsidian-selfhosted.py \
   "/path/to/Obsidian/<vault-name>" \
   --vault-name <vault-name> \
@@ -110,7 +110,7 @@ python tools/import-obsidian-selfhosted.py \
 If you explicitly want to include notes that would normally be flagged by the secret scanner:
 
 ```bash
-OPENBRAIN_DB_PASSWORD='your-postgres-password' \
+OPENBRAIN_MCP_KEY='your-mcp-key' \
 python tools/import-obsidian-selfhosted.py \
   "/path/to/Obsidian/<vault-name>" \
   --vault-name <vault-name> \
@@ -126,4 +126,5 @@ can be surfaced by semantic search later.
 
 - Imported thoughts are tagged with `metadata.source = obsidian`.
 - Imported thoughts are also tagged with `metadata.vault` so you can distinguish vaults later.
-- Embeddings use `qwen3-embedding` and are stored as `vector(4096)`.
+- The importer is API-only: it requires `OPENBRAIN_API_KEY` or `OPENBRAIN_MCP_KEY`.
+- Embeddings use `qwen3-embedding` and are handled by the OpenBrain server.
