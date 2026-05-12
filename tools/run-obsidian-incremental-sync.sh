@@ -9,7 +9,6 @@ SERVICE_ENV_FILE="/Users/openclaw/.openclaw/service-env/ai.openclaw.gateway.env"
 LOG_DIR="$ROOT/logs"
 LOG_FILE="$LOG_DIR/obsidian-incremental-sync.log"
 LOCK_DIR=/tmp/openbrain-obsidian-sync.lock
-OLLAMA_BASE="${EMBEDDING_API_BASE:-http://192.168.0.13:11434/v1}"
 
 mkdir -p "$LOG_DIR"
 
@@ -34,11 +33,6 @@ if ! mkdir "$LOCK_DIR" 2>/dev/null; then
   exit 0
 fi
 trap 'rmdir "$LOCK_DIR" >/dev/null 2>&1 || true' EXIT
-
-if ! curl -fsS --max-time 10 "$OLLAMA_BASE/models" >/dev/null 2>&1; then
-  log "ollama unavailable at $OLLAMA_BASE; skipping and retrying next run"
-  exit 0
-fi
 
 if [[ -z "${OPENBRAIN_API_KEY:-}" && -z "${OPENBRAIN_MCP_KEY:-}" ]]; then
   log "no OpenBrain API key available; skipping and retrying next run"
