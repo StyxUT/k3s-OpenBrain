@@ -11,11 +11,61 @@ Kubernetes manifests for running OpenBrain in the existing k3s cluster.
 
 ## Model Configuration
 
-- Chat API: `http://192.168.0.13:11434/v1`
-- Chat model: `qwen3.6:27b`
-- Embedding API: `http://192.168.0.13:11434/v1`
+- Chat API: `http://192.168.0.13:11435/v1`
+- Chat model: `smollm2:1.7b`
+- Embedding API: `http://192.168.0.13:11435/v1`
 - Embedding model: `qwen3-embedding`
 - Embedding dimension: `4096`
+
+OpenBrain sends both embedding and metadata-extraction calls to the AMD ROCm Ollama instance on
+the desktop at `192.168.0.13:11435`. The NVIDIA Ollama instance on `11434` is kept separate for
+heavier interactive model use.
+
+Metadata extraction is intentionally handled by a small chat model. The OpenBrain server bounds
+metadata extraction with a short timeout and normalizes the returned JSON, so captures can still
+succeed if metadata extraction is slow or malformed.
+
+## AMD Ollama Runtime
+
+The AMD Ollama instance runs outside k3s as a Docker container on the desktop that hosts the Radeon
+RX 6800 XT. This keeps ROCm isolated from the host Ollama packages while preserving the existing
+OpenBrain dependency on the desktop model host.
+
+Current container shape:
+
+```bash
+docker run -d \
+  --name ollama-amd \
+  --restart unless-stopped \
+  --device /dev/kfd \
+  --device /dev/dri \
+  --group-add 985 \
+  --group-add 989 \
+  -e OLLAMA_HOST=0.0.0.0:11434 \
+  -p 11435:11434 \
+  -v /var/.ollama:/root/.ollama \
+  ollama/ollama:rocm
+```
+
+Notes:
+
+- `985` is the host `video` group and `989` is the host `render` group on the current desktop.
+- `--restart unless-stopped` restarts the container after boot unless it was manually stopped.
+- Docker must be enabled on the desktop: `sudo systemctl enable docker`.
+- The legacy host `ollama-amd.service` should remain removed/disabled so it does not occupy port `11435`.
+
+Verify the AMD Ollama runtime:
+
+```bash
+docker ps --filter name=ollama-amd
+curl http://localhost:11435/api/tags
+docker logs ollama-amd --tail 100
+rocm-smi
+```
+
+Successful ROCm startup logs include `library=ROCm`, `compute=gfx1030`, and
+`AMD Radeon RX 6800 XT`. Successful generation logs should show GPU offload such as
+`offloaded 33/33 layers to GPU`.
 
 ## Required Secret
 
@@ -55,6 +105,7 @@ To test the MCP endpoint after the pod is ready:
 ```bash
 curl -X POST http://192.168.0.211:8000 \
   -H "x-brain-key: YOUR_MCP_KEY" \
+  -H "Accept: application/json, text/event-stream" \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
 ```
