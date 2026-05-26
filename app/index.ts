@@ -67,33 +67,46 @@ async function getEmbedding(text: string): Promise<number[]> {
 }
 
 async function extractMetadata(text: string): Promise<Record<string, unknown>> {
-  const r = await fetch(`${CHAT_API_BASE}/chat/completions`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${CHAT_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: CHAT_MODEL,
-      response_format: { type: "json_object" },
-      messages: [
-        {
-          role: "system",
-          content: `Extract metadata from the user's captured thought. Return JSON with:
+  try {
+    const r = await fetch(`${CHAT_API_BASE}/chat/completions`, {
+      method: "POST",
+      signal: AbortSignal.timeout(10_000),
+      headers: {
+        Authorization: `Bearer ${CHAT_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: CHAT_MODEL,
+        response_format: { type: "json_object" },
+        temperature: 0,
+        max_tokens: 128,
+        messages: [
+          {
+            role: "system",
+            content: `Extract metadata from the user's captured thought. Return JSON with:
 - "people": array of people mentioned (empty if none)
 - "action_items": array of implied to-dos (empty if none)
 - "dates_mentioned": array of dates YYYY-MM-DD (empty if none)
 - "topics": array of 1-3 short topic tags (always at least one)
 - "type": one of "observation", "task", "idea", "reference", "person_note"
-Only extract what's explicitly there.`,
-        },
-        { role: "user", content: text },
-      ],
-    }),
-  });
-  const d = await r.json();
-  try {
-    return JSON.parse(d.choices[0].message.content);
+Only extract what's explicitly there. Do not infer dates, tasks, or people that are not in the text.`,
+          },
+          { role: "user", content: text },
+        ],
+      }),
+    });
+    const d = await r.json();
+    const parsed = JSON.parse(d.choices[0].message.content);
+    const asStrings = (value: unknown): string[] =>
+      Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
+    const validTypes = new Set(["observation", "task", "idea", "reference", "person_note"]);
+    return {
+      people: asStrings(parsed.people),
+      action_items: asStrings(parsed.action_items),
+      dates_mentioned: asStrings(parsed.dates_mentioned).filter((date) => text.includes(date)),
+      topics: asStrings(parsed.topics).slice(0, 3),
+      type: validTypes.has(parsed.type) ? parsed.type : "observation",
+    };
   } catch {
     return { topics: ["uncategorized"], type: "observation" };
   }
