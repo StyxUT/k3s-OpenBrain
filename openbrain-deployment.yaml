@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -7,92 +6,110 @@ metadata:
     app: openbrain
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: openbrain
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app: openbrain
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: tpu
-                operator: NotIn
-                values:
-                - "true"
-      containers:
-      - name: openbrain
-        image: denoland/deno:2.3.3
-        imagePullPolicy: IfNotPresent
-        command:
-        - deno
-        - run
-        - --allow-net
-        - --allow-env
-        - --allow-read
-        - /app/index.ts
-        ports:
-        - name: http
-          containerPort: 8000
-          protocol: TCP
-        env:
-        - name: DB_HOST
-          value: "postgres-service"
-        - name: DB_PORT
-          value: "5432"
-        - name: DB_NAME
-          value: "openbrain"
-        - name: DB_USER
-          value: "postgres"
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-password
-              key: POSTGRES_PASSWORD
-        - name: MCP_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: openbrain-secret
-              key: MCP_ACCESS_KEY
-        - name: EMBEDDING_API_BASE
-          value: "http://192.168.0.13:11435/v1"
-        - name: EMBEDDING_API_KEY
-          value: "ollama"
-        - name: EMBEDDING_MODEL
-          value: "qwen3-embedding"
-        - name: CHAT_API_BASE
-          value: "http://192.168.0.13:11435/v1"
-        - name: CHAT_API_KEY
-          value: "ollama"
-        - name: CHAT_MODEL
-          value: "smollm2:1.7b"
-        - name: PORT
-          value: "8000"
-        readinessProbe:
-          tcpSocket:
-            port: 8000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        volumeMounts:
-        - name: openbrain-app
-          mountPath: /app/index.ts
-          subPath: index.ts
-        - name: openbrain-app
-          mountPath: /app/deno.json
-          subPath: deno.json
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            memory: 512Mi
+      nodeSelector:
+        kubernetes.io/hostname: k3s-worker-01
       volumes:
-      - name: openbrain-app
-        configMap:
-          name: openbrain-app
+        - name: runtime-source
+          configMap:
+            name: openbrain-runtime-source
+      containers:
+        - name: openbrain
+          image: openbrain-mcp:20261004-r2
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: runtime-source
+              mountPath: /app/index.ts
+              subPath: index.ts
+              readOnly: true
+            - name: runtime-source
+              mountPath: /app/embedding.ts
+              subPath: embedding.ts
+              readOnly: true
+          command:
+            - deno
+            - run
+            - --cached-only
+            - --allow-net
+            - --allow-env
+            - --allow-read
+            - /app/index.ts
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          env:
+            - name: DB_HOST
+              value: postgres-service
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: openbrain
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: POSTGRES_PASSWORD
+            - name: MCP_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openbrain-secret
+                  key: MCP_ACCESS_KEY
+            - name: EMBEDDING_API_BASE
+              value: http://arch.home:11435/v1
+            - name: EMBEDDING_API_KEY
+              value: ollama
+            - name: EMBEDDING_MODEL
+              value: qwen3-embedding
+            - name: EMBEDDING_FALLBACK_API_BASE
+              value: http://arch.home:11434/api
+            - name: EMBEDDING_FALLBACK_API_KEY
+              value: ollama
+            - name: EMBEDDING_FALLBACK_FORMAT
+              value: ollama
+            - name: EMBEDDING_TIMEOUT_MS
+              value: "15000"
+            - name: EMBEDDING_PRIMARY_TIMEOUT_MS
+              value: "5000"
+            - name: EMBEDDING_COOLDOWN_MS
+              value: "60000"
+            - name: CHAT_API_BASE
+              value: http://arch.home:11434/v1
+            - name: CHAT_API_KEY
+              value: ollama
+            - name: CHAT_MODEL
+              value: smollm2:1.7b
+            - name: PORT
+              value: "8000"
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 512Mi

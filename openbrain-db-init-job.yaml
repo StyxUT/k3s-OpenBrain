@@ -11,6 +11,9 @@ spec:
         app: openbrain-db-init
     spec:
       restartPolicy: OnFailure
+      nodeSelector:
+        kubernetes.io/hostname: k3s-worker-01
+        iSCSI: "true"
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -23,7 +26,7 @@ spec:
       containers:
       - name: psql
         image: pgvector/pgvector:pg18
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Never
         env:
         - name: PGPASSWORD
           valueFrom:

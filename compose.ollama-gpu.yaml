@@ -1,0 +1,33 @@
+services:
+  ollama-gpu:
+    image: ollama/ollama@sha256:e87f7608374a9f4a3f103032b895910bf501ea248a91b12c83f34f41673176f6
+    pull_policy: never
+    container_name: ollama-amd
+    labels:
+      com.openbrain.role: embedding-gpu
+    restart: unless-stopped
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - "985"
+      - "989"
+    ports:
+      - "192.168.0.13:11435:11434"
+    environment:
+      OLLAMA_HOST: "0.0.0.0:11434"
+      OLLAMA_MODELS: /models
+      OLLAMA_CONTEXT_LENGTH: "32768"
+      OLLAMA_FLASH_ATTENTION: "1"
+      OLLAMA_NUM_PARALLEL: "1"
+      OLLAMA_MAX_LOADED_MODELS: "1"
+      OLLAMA_KEEP_ALIVE: "-1"
+      OLLAMA_NO_CLOUD: "1"
+      OLLAMA_NOPRUNE: "1"
+    volumes:
+      - /var/.ollama/models:/models:ro
+      - gpu-config:/root/.ollama
+volumes:
+  gpu-config:
+    external: true
+    name: openbrain-ollama-gpu-config

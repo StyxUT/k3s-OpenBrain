@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: openbrain-postgres
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: synology-iscsi-storage
+  volumeMode: Filesystem
+  csi:
+    driver: csi.san.synology.com
+    volumeHandle: a8f7c4e9-4c0e-4a39-8d2b-f39d912b6c8d
+    fsType: ext4
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openbrain-postgres
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: synology-iscsi-storage
+  volumeName: openbrain-postgres
+  resources:
+    requests:
+      storage: 5Gi

@@ -6,11 +6,15 @@ resources:
   - openbrain-db-init-job.yaml
   - openbrain-deployment.yaml
   - openbrain-svc.yaml
+  - openbrain-postgres-pv.yaml
+  - postgres-deployment.yaml
+  - postgres-svc.yaml
+  - network-policies.yaml
 configMapGenerator:
-  - name: openbrain-app
+  - name: openbrain-runtime-source
     files:
-      - app/index.ts
-      - app/deno.json
+      - index.ts=app/index.ts
+      - embedding.ts=app/embedding.ts
 secretGenerator:
   - name: openbrain-secret
     files:

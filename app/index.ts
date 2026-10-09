@@ -10,6 +10,11 @@
  *   EMBEDDING_API_BASE - Base URL for OpenAI-compatible embedding API
  *   EMBEDDING_API_KEY - API key for the embedding service
  *   EMBEDDING_MODEL - Model name for embeddings (default: text-embedding-3-small)
+ *   EMBEDDING_FALLBACK_API_BASE, EMBEDDING_FALLBACK_API_KEY - Optional CPU fallback
+ *   EMBEDDING_FALLBACK_FORMAT - openai or ollama (native API forces num_gpu=0)
+ *   EMBEDDING_TIMEOUT_MS - Total embedding deadline (default: 15000)
+ *   EMBEDDING_PRIMARY_TIMEOUT_MS - GPU attempt budget (default: 5000)
+ *   EMBEDDING_COOLDOWN_MS - GPU circuit-breaker cooldown (default: 60000)
  *   CHAT_API_BASE - Base URL for OpenAI-compatible chat API (defaults to EMBEDDING_API_BASE)
  *   CHAT_API_KEY - API key for chat service (defaults to EMBEDDING_API_KEY)
  *   CHAT_MODEL - Model name for metadata extraction (default: gpt-4o-mini)
@@ -21,6 +26,7 @@ import { StreamableHTTPTransport } from "@hono/mcp";
 import { Hono } from "hono";
 import { z } from "zod";
 import { Pool } from "postgres";
+import { createEmbeddingClient } from "./embedding.ts";
 
 const DB_HOST = Deno.env.get("DB_HOST") || "127.0.0.1";
 const DB_PORT = parseInt(Deno.env.get("DB_PORT") || "5432", 10);
@@ -46,24 +52,21 @@ const pool = new Pool({
   password: DB_PASSWORD,
 }, 20);
 
+const embeddingClient = createEmbeddingClient({
+  primaryBase: EMBEDDING_API_BASE,
+  primaryKey: EMBEDDING_API_KEY,
+  fallbackBase: Deno.env.get("EMBEDDING_FALLBACK_API_BASE") || undefined,
+  fallbackKey: Deno.env.get("EMBEDDING_FALLBACK_API_KEY") || EMBEDDING_API_KEY,
+  fallbackFormat: Deno.env.get("EMBEDDING_FALLBACK_FORMAT") === "ollama" ? "ollama" : "openai",
+  model: EMBEDDING_MODEL,
+  timeoutMs: Number(Deno.env.get("EMBEDDING_TIMEOUT_MS") || "15000"),
+  primaryTimeoutMs: Number(Deno.env.get("EMBEDDING_PRIMARY_TIMEOUT_MS") || "5000"),
+  cooldownMs: Number(Deno.env.get("EMBEDDING_COOLDOWN_MS") || "60000"),
+  onEvent: (event) => console.info(JSON.stringify({ component: "embedding", ...event })),
+});
+
 async function getEmbedding(text: string): Promise<number[]> {
-  const r = await fetch(`${EMBEDDING_API_BASE}/embeddings`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${EMBEDDING_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: EMBEDDING_MODEL,
-      input: text,
-    }),
-  });
-  if (!r.ok) {
-    const msg = await r.text().catch(() => "");
-    throw new Error(`Embedding API failed: ${r.status} ${msg}`);
-  }
-  const d = await r.json();
-  return d.data[0].embedding;
+  return await embeddingClient.embed(text);
 }
 
 async function extractMetadata(text: string): Promise<Record<string, unknown>> {
@@ -378,7 +381,7 @@ server.registerTool(
       ]);
 
       const embStr = `[${embedding.join(",")}]`;
-      const meta = { ...metadata, source: "mcp" };
+      const meta: Record<string, unknown> = { ...metadata, source: "mcp" };
 
       const client = await pool.connect();
       try {
@@ -412,6 +415,20 @@ server.registerTool(
 );
 
 const app = new Hono();
+
+// Health endpoint for Kubernetes and HAProxy. Keep it before the MCP auth handler.
+app.get("/healthz", async (c) => {
+  let client;
+  try {
+    client = await pool.connect();
+    await client.queryObject("SELECT 1");
+    return c.json({ status: "ok" });
+  } catch {
+    return c.json({ status: "unavailable" }, 503);
+  } finally {
+    client?.release();
+  }
+});
 
 app.all("*", async (c) => {
   const provided = c.req.header("x-brain-key") || new URL(c.req.url).searchParams.get("key");

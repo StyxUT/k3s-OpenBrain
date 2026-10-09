@@ -1,20 +1,17 @@
----
 apiVersion: v1
 kind: Service
 metadata:
   name: openbrain
+  labels:
+    app: openbrain
 spec:
   type: NodePort
+  externalTrafficPolicy: Local
   selector:
     app: openbrain
   ports:
-  - name: http
-    port: 8000
-    targetPort: 8000
-    protocol: TCP
-  externalIPs:
-  - 192.168.0.211
-  - 192.168.0.221
-  - 192.168.0.222
-  - 192.168.0.223
-  - 192.168.0.224
+    - name: http
+      port: 8000
+      targetPort: http
+      nodePort: 32080
+      protocol: TCP
