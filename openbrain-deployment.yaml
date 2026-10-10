@@ -16,16 +16,24 @@ spec:
       labels:
         app: openbrain
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: k3s-worker-01
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values: ["k3s-mgmt-01", "k3s-worker-02", "k3s-worker-04"]
+      imagePullSecrets:
+        - name: image-registry-credentials
       volumes:
         - name: runtime-source
           configMap:
             name: openbrain-runtime-source
       containers:
         - name: openbrain
-          image: openbrain-mcp:20261004-r2
-          imagePullPolicy: Never
+          image: 192.168.50.222:32050/styxut/openbrain-mcp@sha256:d28fc560b694f1a5ead49bd626a8d4c8983de8400a554faad79c6bab4105a929
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: runtime-source
               mountPath: /app/index.ts

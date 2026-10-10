@@ -17,12 +17,21 @@ spec:
         app: postgres
     spec:
       nodeSelector:
-        kubernetes.io/hostname: k3s-worker-01
         iSCSI: "true"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values: ["k3s-mgmt-01", "k3s-worker-02", "k3s-worker-04"]
+      imagePullSecrets:
+        - name: image-registry-credentials
       containers:
         - name: postgres
-          image: pgvector/pgvector:pg18
-          imagePullPolicy: Never
+          image: 192.168.50.222:32050/pgvector/pgvector@sha256:2358fcba361ed2233a5ed81b5fe4ca779ccb304120ce531a3bf51c0ed7e2bc11
+          imagePullPolicy: IfNotPresent
           ports:
             - name: postgres
               containerPort: 5432
@@ -58,8 +67,8 @@ spec:
             - name: shm
               mountPath: /dev/shm
         - name: postgres-exporter
-          image: quay.io/prometheuscommunity/postgres-exporter:v0.17.1
-          imagePullPolicy: Never
+          image: 192.168.50.222:32050/prometheuscommunity/postgres-exporter@sha256:38606faa38c54787525fb0ff2fd6b41b4cfb75d455c1df294927c5f611699b17
+          imagePullPolicy: IfNotPresent
           ports:
             - name: metrics
               containerPort: 9187

@@ -6,7 +6,7 @@ metadata:
     app: openbrain
 spec:
   type: NodePort
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   selector:
     app: openbrain
   ports:
