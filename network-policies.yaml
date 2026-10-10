@@ -61,6 +61,9 @@ spec:
         - podSelector:
             matchLabels:
               app: openbrain-db-init
+        - podSelector:
+            matchLabels:
+              app: pconxt
       ports:
         - {protocol: TCP, port: 5432}
     - from:
